@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: qais001/ai-hub:01
+        image: qais001/ai-hub:02
 
         resources:
           requests:
@@ -29,7 +29,12 @@ spec:
           limits:
             cpu: "1"
             memory: "500Mi"
-
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
         ports:
         - containerPort: 8000
 
