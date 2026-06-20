@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: qais001/ai-hub:02
+        image: qais001/ai-hub:15
 
         ports:
         - containerPort: 8000
@@ -32,7 +32,7 @@ spec:
           limits:
             cpu: "1"
             memory: "500Mi"
-            
+
         startupProbe:
           httpGet:
             path: /healthz

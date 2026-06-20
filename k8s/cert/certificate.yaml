@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: demo-tls
+  namespace: ollamahub
+spec:
+  secretName: demo-tls
+  dnsNames:
+    - ollama.ai.com
+  issuerRef:
+    name: selfsigned-issuer
+    kind: ClusterIssuer

@@ -3,10 +3,17 @@ kind: Ingress
 metadata:
   name: ollama-ingress
   namespace: ollamahub
-  labels:
-    app.kubernetes.io/name: ollamahub-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: selfsigned-issuer
 spec:
   ingressClassName: nginx
+  
+  tls:
+  - hosts:
+    - ollama.ai.com
+    secretName: demo-tls
+  
   rules:
   - host: ollama.ai.com
     http:
