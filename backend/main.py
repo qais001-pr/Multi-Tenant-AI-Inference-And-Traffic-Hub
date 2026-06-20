@@ -33,11 +33,9 @@ def readiness():
         if conn is None:
             return {"status": "not ready"}, 500
         cursor = conn.cursor()
-        cursor.execute("SELECT 1")
         return {"status": "ready"}
-    except:
+    except Exception as e:
         return {"status": "not ready"}, 500
-
 
 if __name__ == "__main__":
     uvicorn.run(app)
