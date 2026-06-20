@@ -14,7 +14,7 @@ spec:
     image: jenkins/inbound-agent:3355.v388858a_47b_33-22
 
   - name: docker
-    image: docker:24-cli
+    image: docker:25-cli
     command: ["cat"]
     tty: true
     volumeMounts:
