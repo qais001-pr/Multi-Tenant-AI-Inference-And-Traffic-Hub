@@ -1,17 +1,15 @@
-/* groovylint-disable TrailingWhitespace, UnnecessaryGString */
-/* groovylint-disable-next-line CompileStatic */
 pipeline {
     agent {
         kubernetes {
             yaml """
-            apiVersion: v1
+apiVersion: v1
 kind: Pod
 metadata:
   name: docker-cli
   namespace: jenkins
 spec:
   containers:
-  
+
   - name: jnlp
     image: jenkins/inbound-agent:3355.v388858a_47b_33-22
 
@@ -19,7 +17,6 @@ spec:
     image: docker:24-cli
     command: ["cat"]
     tty: true
-  
     volumeMounts:
     - name: docker-sock
       mountPath: /var/run/docker.sock
@@ -28,26 +25,31 @@ spec:
   - name: docker-sock
     hostPath:
       path: /var/run/docker.sock
-            """
+"""
         }
     }
+
     stages {
-        stage('CheckOut SCM') {
+
+        stage('Checkout SCM') {
             steps {
                 checkout scm
             }
         }
+
         stage('Docker Login') {
             steps {
-                withCredentials([usernamePassword(
-            credentialsId: 'docker-login-credientials',
-            usernameVariable: 'DOCKER_USER',
-            passwordVariable: 'DOCKER_PASS'
-        )]) {
-                    sh '''
-                echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-            '''
-        }
+                container('docker') {
+                    withCredentials([usernamePassword(
+                        credentialsId: 'docker-login-credientials',
+                        usernameVariable: 'DOCKER_USER',
+                        passwordVariable: 'DOCKER_PASS'
+                    )]) {
+                        sh '''
+                            echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                        '''
+                    }
+                }
             }
         }
     }
