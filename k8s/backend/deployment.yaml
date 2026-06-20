@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  namespace: ollamahub
+  labels:
+    app: backend-deployment-label
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-deployment-label
+
+  template:
+    metadata:
+      labels:
+        app: backend-deployment-label
+
+    spec:
+      containers:
+      - name: myapp
+        image: qais001/ai-hub:01
+
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "128Mi"
+          limits:
+            cpu: "1"
+            memory: "500Mi"
+
+        ports:
+        - containerPort: 8000
+
+        envFrom:
+        - configMapRef:
+            name: backend-configmap

@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ollama-deployment
+  namespace: ollamahub
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: ollama
+
+  template:
+    metadata:
+      labels:
+        app: ollama
+
+    spec:
+      containers:
+      - name: ollama-container
+        image: ollama/ollama
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "4Gi"
+          limits:
+            cpu: "2"
+            memory: "8Gi"
+        ports:
+        - containerPort: 11434
+
+        volumeMounts:
+        - name: ollama-volume
+          mountPath: /root/.ollama
+
+      volumes:
+      - name: ollama-volume
+        persistentVolumeClaim:
+          claimName: ollamahub-pvc

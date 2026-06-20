@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-configmap
+  namespace: ollamahub
+  labels:
+    app: backend-ollama
+data:
+  OLLAMA_LLAMA_URL: "http://ollamahub-service.ollamahub.svc.cluster.local:11434/"
+  POSTGRESS_HOST: "postgres-service.ollamahub.svc.cluster.local"
+  POSTGRESS_DATABASE: "mydb"
+  PROSTGRESS_USER: "postgres"
+  POSTGRESS_PASSWORD: "password123"
+  POSTGRESS_PORT: "5432"

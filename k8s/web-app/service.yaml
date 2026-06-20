@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-app-service
+  namespace: ollamahub
+  labels:
+    app: web-app-deployments
+spec:
+  selector:
+    app: web-app-deployments
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80

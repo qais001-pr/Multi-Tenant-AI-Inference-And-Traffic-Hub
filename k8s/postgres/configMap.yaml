@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-configmap
+  namespace: ollamahub
+data:
+  POSTGRES_USER: "postgres"
+  POSTGRES_PASSWORD: "password123"
+  POSTGRES_DB: "mydb"
