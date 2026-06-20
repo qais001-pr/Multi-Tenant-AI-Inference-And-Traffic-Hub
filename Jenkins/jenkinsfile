@@ -1,5 +1,30 @@
+/* groovylint-disable-next-line CompileStatic */
 pipeline {
-    agent any
+    agent {
+        kubernetes {
+            yaml """
+            apiVersion: v1
+kind: Pod
+metadata:
+  name: docker-cli
+  namespace: jenkins
+spec:
+  containers:
+  - name: docker
+    image: docker:24-cli
+    command: ["cat"]
+    tty: true
+    volumeMounts:
+    - name: docker-sock
+      mountPath: /var/run/docker.sock
+
+  volumes:
+  - name: docker-sock
+    hostPath:
+      path: /var/run/docker.sock
+            """
+        }
+    }
     stages {
         stage('CheckOut SCM') {
             steps {
