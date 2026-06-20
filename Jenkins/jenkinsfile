@@ -1,23 +1,23 @@
-pipeline{
+pipeline {
     agent any
     stages {
-        stage("CheckOut SCM"){
+        stage('CheckOut SCM') {
             steps {
                 checkout scm
             }
         }
-        stage("Docker Login") {
-    steps {
-        withCredentials([usernamePassword(
-            credentialsId: 'docker-login-credentials',
+        stage('Docker Login') {
+            steps {
+                withCredentials([usernamePassword(
+            credentialsId: 'docker-login-credientials',
             usernameVariable: 'DOCKER_USER',
             passwordVariable: 'DOCKER_PASS'
         )]) {
-            sh '''
+                    sh '''
                 echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
             '''
         }
+            }
+        }
     }
-}
-}
 }
