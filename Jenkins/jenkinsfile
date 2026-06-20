@@ -1,7 +1,7 @@
 pipeline {
     agent {
         kubernetes {
-            yaml """
+            yaml '''
 apiVersion: v1
 kind: Pod
 metadata:
@@ -25,12 +25,11 @@ spec:
   - name: docker-sock
     hostPath:
       path: /var/run/docker.sock
-"""
+'''
         }
     }
 
     stages {
-
         stage('Checkout SCM') {
             steps {
                 checkout scm
@@ -47,6 +46,21 @@ spec:
                     )]) {
                         sh '''
                             echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                        '''
+                    }
+                }
+            }
+        }
+
+        stage('Build Docker Images') {
+            steps {
+                container('docker') {
+                        dir('backend') {
+                        sh '''
+                        docker build -t qais001/ai-hub:${BUILD_NUMBER} .
+                        '''
+                        sh '''
+                        docker push qais001/ai-hub:${BUILD_NUMBER}
                         '''
                     }
                 }
