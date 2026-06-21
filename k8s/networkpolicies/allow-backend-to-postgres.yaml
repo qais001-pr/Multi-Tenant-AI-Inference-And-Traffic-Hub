@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-backend-to-postgres
+  namespace: ollamahub
+spec:
+  podSelector:
+    matchLabels:
+      app: postgress-deployment
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: backend-deployment-label
+      ports:
+        - protocol: TCP
+          port: 5432

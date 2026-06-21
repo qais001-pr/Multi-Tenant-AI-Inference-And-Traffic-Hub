@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: postgress-deployment
   namespace: ollamahub
+  labels:
+    app: postgress-deployment
 spec:
   selector:
     matchLabels:
