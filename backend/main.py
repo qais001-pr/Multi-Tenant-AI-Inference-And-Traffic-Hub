@@ -6,6 +6,7 @@ from dotenv import load_dotenv # type: ignore
 from routes.emails_routes import emails_router
 from routes.ollama_routes import ollama_router
 from config import create_connection
+from prometheus_fastapi_instrumentator import Instrumentator #type: ignore
 
 app = FastAPI()
 app.add_middleware(
@@ -15,6 +16,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+instrumentator = Instrumentator().instrument(app)
+@app.on_event("startup")
+async def _startup():
+    instrumentator.expose(app)
 load_dotenv()
 connect_with_ollama()
 create_tables()
