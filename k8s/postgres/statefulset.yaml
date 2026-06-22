@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgress-deployment
+  namespace: ollamahub
+  labels:
+    app: postgress-deployment
+spec:
+  selector:
+    matchLabels:
+      app: postgress-deployment
+  template:
+    metadata:
+      labels:
+        app: postgress-deployment
+    spec:
+      containers:
+        - name: postgress-container
+          image: postgres:alpine
+          ports:
+            - containerPort: 5432
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+          envFrom:
+            - secretRef:
+                name: postgres-secret
+          volumeMounts:
+            - name: postgres-pv
+              mountPath: /var/lib/postgresql
+
+      volumes:
+        - name: postgres-pv
+          persistentVolumeClaim:
+            claimName: postgres-pvc
