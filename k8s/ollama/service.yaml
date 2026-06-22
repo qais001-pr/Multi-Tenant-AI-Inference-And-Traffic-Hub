@@ -4,7 +4,7 @@ metadata:
   name: ollamahub-service
   namespace: ollamahub
   labels:
-    app: ollama
+    app: ollamahub-service
 spec:
   selector:
     app: ollama

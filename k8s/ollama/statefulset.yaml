@@ -1,9 +1,10 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: ollama-deployment
+  name: ollama-stateful-set
   namespace: ollamahub
-
+  labels:
+    app: ollama
 spec:
   replicas: 1
 
