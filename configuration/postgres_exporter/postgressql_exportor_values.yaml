@@ -1,0 +1,20 @@
+config:
+  datasource:
+    host: 'postgres-service.ollamahub.svc.cluster.local'
+    userSecret: 
+      name: 'postgres-secret'
+      key: 'POSTGRES_USER'
+    passwordSecret:
+      name: 'postgres-secret'
+      key: 'POSTGRES_PASSWORD'
+    port: "5432"
+    database: 'mydb'
+serviceMonitor:
+  enabled: true
+  apiVersion: "monitoring.coreos.com/v1"
+  namespace: monitoring
+  interval: 30s
+  telemetryPath: /metrics
+  labels:
+    release: prometheus
+  timeout: 10s
