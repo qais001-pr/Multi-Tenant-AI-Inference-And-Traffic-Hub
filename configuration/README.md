@@ -35,6 +35,11 @@ helm install loki grafana/loki --version 6.29.0 --namespace monitoring \
   --set chunksCache.enabled=false \
   --set resultsCache.enabled=false \
   --set test.enabled=false
+
+  OR
+
+  helm install prometheus prometheus-community/kube-prometheus-stack -n monitoring --version <current_version> --values <prom-values.yaml>
+  
 ```
 
 ### Testing Loki
