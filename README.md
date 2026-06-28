@@ -25,9 +25,7 @@ This project showcases a complete DevOps workflow, including:
 - 🔹 AI inference service deployment
 - 🔹 Docker-based containerization
 - 🔹 Kubernetes orchestration
-- 🔹 Load balancing
 - 🔹 CI/CD automation
-- 🔹 Infrastructure as Code ready
 - 🔹 Monitoring & Logging
 - 🔹 Production-ready deployment structure
 - 🔹 Scalable cloud-native architecture
@@ -42,7 +40,6 @@ This project showcases a complete DevOps workflow, including:
 - Kubernetes
 - GitHub Actions / Jenkins
 - Linux
-- NGINX
 - YAML
 
 ### Backend
@@ -66,21 +63,13 @@ This project showcases a complete DevOps workflow, including:
 
 ```text
 .
-├── app/
-├── kubernetes/
-├── docker/
-├── manifests/
-├── monitoring/
-├── scripts/
-├── docs/
-├── .github/
-├── Dockerfile
-├── docker-compose.yml
+├── jenkins/
+├── backend/
+├── configuration/
+├── k8s/
+├── web-app/
 └── README.md
 ```
-
-> Folder names may vary depending on your implementation.
-
 ---
 
 ## ⚙️ Prerequisites
