@@ -1,4 +1,4 @@
-/* groovylint-disable CompileStatic, DuplicateStringLiteral, GStringExpressionWithinString, NestedBlockDepth */
+/* groovylint-disable DuplicateStringLiteral, GStringExpressionWithinString, NestedBlockDepth */
 pipeline {
     agent {
         kubernetes {
@@ -41,7 +41,7 @@ spec:
             steps {
                 container('docker') {
                     withCredentials([usernamePassword(
-                        credentialsId: 'github-credentials-qais001-pr',
+                        credentialsId: 'docker-login-credientials',
                         usernameVariable: 'DOCKER_USER',
                         passwordVariable: 'DOCKER_PASS'
                     )]) {
