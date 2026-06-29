@@ -46,7 +46,7 @@ spec:
                         passwordVariable: 'DOCKER_PASS'
                     )]) {
                         sh '''
-                            echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                            docker login -u "$DOCKER_USER" --password-stdin
                         '''
                     }
                 }
@@ -62,6 +62,14 @@ spec:
                         '''
                         sh '''
                         docker push qais001/ai-hub:${BUILD_NUMBER}
+                        '''
+                    }
+                dir('web-app') {
+                        sh '''
+                        docker build -t qais001/ai-hub-web-app:${BUILD_NUMBER} .
+                        '''
+                        sh '''
+                        docker push qais001/ai-hub-web-app:${BUILD_NUMBER}
                         '''
                     }
                 }
