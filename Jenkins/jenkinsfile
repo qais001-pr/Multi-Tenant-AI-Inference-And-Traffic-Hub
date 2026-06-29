@@ -46,7 +46,7 @@ spec:
                         passwordVariable: 'DOCKER_PASS'
                     )]) {
                         sh '''
-                            docker login -u "$DOCKER_USER" --password-stdin
+                            docker login -u "$DOCKER_USER"
                         '''
                     }
                 }
