@@ -1,3 +1,4 @@
+/* groovylint-disable CompileStatic, DuplicateStringLiteral, GStringExpressionWithinString, NestedBlockDepth */
 pipeline {
     agent {
         kubernetes {
@@ -11,7 +12,7 @@ spec:
   containers:
 
   - name: jnlp
-    image: jenkins/inbound-agent:3355.v388858a_47b_33-22
+    image: jenkins/inbound-agent:3355.v388858a_47b_33-23
 
   - name: docker
     image: docker:25-cli
