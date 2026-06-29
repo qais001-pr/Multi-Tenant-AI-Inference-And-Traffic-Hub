@@ -38,20 +38,22 @@ spec:
         }
 
         stage('Docker Login') {
-            steps {
-                container('docker') {
-                    withCredentials([usernamePassword(
-                        credentialsId: 'docker-login-credientials',
-                        usernameVariable: 'DOCKER_USER',
-                        passwordVariable: 'DOCKER_PASS'
-                    )]) {
-                        sh '''
-                            docker login -u "$DOCKER_USER"
-                        '''
-                    }
-                }
+    steps {
+        container('docker') {
+            withCredentials([usernamePassword(
+                credentialsId: 'docker-login-credientials',
+                usernameVariable: 'DOCKER_USER',
+                passwordVariable: 'DOCKER_PASS'
+            )]) {
+                sh '''
+                    echo "$DOCKER_PASS" | docker login \
+                        -u "$DOCKER_USER" \
+                        --password-stdin
+                '''
             }
         }
+    }
+}
 
         stage('Build Docker Images') {
             steps {
